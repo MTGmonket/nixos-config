@@ -10,6 +10,7 @@ let myAliases = {
   updateFlake = "cd ~/.dotfiles; nix flake update;";
   switchToFlake = "sudo nixos-rebuild switch --flake ~/.dotfiles/; home-manager switch --flake ~/.dotfiles/";
   switchToHome = "home-manager switch --flake ~/.dotfiles/";
+  pushFlake = "cd ~/.dotfiles; git add *; git commit -m '$1'; git push github main;";
 }; in {
   home.username = "mtgmonkey";
   home.homeDirectory = "/home/mtgmonkey";
