@@ -2,7 +2,8 @@
 
 # let
 # bash binds
-let myAliases = {
+let 
+myAliases = {
   ll = "ls -l";
   ".." = "cd ..";
   edconf = "nvim ~/.dotfiles/configuration.nix";
@@ -11,7 +12,8 @@ let myAliases = {
   switchToFlake = "sudo nixos-rebuild switch --flake ~/.dotfiles/; home-manager switch --flake ~/.dotfiles/";
   switchToHome = "home-manager switch --flake ~/.dotfiles/";
   pushFlake = "cd ~/.dotfiles; git add *; git commit -m $1; git push github main;";
-}; in {
+};
+in {
   home.username = "mtgmonkey";
   home.homeDirectory = "/home/mtgmonkey";
   # Don't change stateVersion
