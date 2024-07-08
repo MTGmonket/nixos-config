@@ -20,6 +20,7 @@
   networking.hostName = "dell-latitude";
   networking.networkmanager.enable = true;
   networking.firewall.enable = false;
+  nix.binaryCaches = [ "https://aseipp-nix-cache.global.ssl.fastly.net" ];
   
   # users
   users.users = {
@@ -52,7 +53,6 @@
   services.libinput.enable = true;
 
   # meta
-  services.automatic-timezoned.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
   system.stateVersion = "24.05";
 }

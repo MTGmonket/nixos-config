@@ -11,7 +11,9 @@ myAliases = {
   updateFlake = "cd ~/.dotfiles; nix flake update;";
   switchToFlake = "home-manager switch --flake ~/.dotfiles/";
   ffd = "firefox-devedition";
-  prepForStream = "showmethekeys-gtk | pavucontrol | obs | firefox-devedition";
+  prepForStream = "showmethekey-gtk | pavucontrol | obs | firefox-devedition";
+  cd = "z";
+  cl = "clear;neofetch;";
 };
 termrc = ''
   function pushFlake { cd ~/.dotfiles; git add *; git commit -m $1; git push github main; };
@@ -42,6 +44,14 @@ in {
   ];
 
   # program config
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+  };
+  programs.htop = {
+    enable = true;
+  };
   programs.zsh = {
     enable = true;
     shellAliases = myAliases;
@@ -85,8 +95,8 @@ in {
         height = 30;
 	spacing = 6;
 
-	modules-left = [  ];
-	modules-center = [ "hyprland/workspaces" ];
+	modules-center = [  ];
+	modules-left = [ "hyprland/workspaces" ];
 	modules-right = [ "battery" "pulseaudio" "clock" ];
 
 	battery = {
@@ -109,8 +119,8 @@ in {
     settings = {
       irc = "off";
       splash = false;
-      preload = [ "~/.dotfiles/wallpaper/hero1920x1080.png" ];
-      wallpaper = [ ",~/.dotfiles/wallpaper/hero1920x1080.png" ];
+      preload = [ "~/.dotfiles/wallpaper/gear.png" ];
+      wallpaper = [ ",~/.dotfiles/wallpaper/gear.png" ];
     };
   };
   wayland.windowManager.hyprland = {
@@ -151,8 +161,8 @@ in {
       decoration {
         rounding = 0
 
-	active_opacity = 0.66
-	inactive_opacity = 0.20
+	active_opacity = 0.54
+	inactive_opacity = 0.32
 
 	drop_shadow = false
 
