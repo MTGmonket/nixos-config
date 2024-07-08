@@ -1,8 +1,8 @@
 {
-  description = "My First Flake";
+  description = "i cant name things";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nixpkgs, home-manager, ... }:
@@ -17,11 +17,11 @@
 	modules = [ ./configuration.nix ];
       };
     };
-    homeConfigurations = {
-      mtgmonkey = home-manager.lib.homeManagerConfiguration {
-	inherit pkgs;
-	modules = [ ./home.nix ];
-      };
+    homeConfigurations.mtgmonkey = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [
+        ./home.nix
+      ];
     };
   };
 }
