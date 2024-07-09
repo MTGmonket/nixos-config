@@ -37,6 +37,8 @@ in {
     showmethekey
     smplayer
     wev
+    wl-clipboard
+    wl-clip-persist
     xdg-desktop-portal-hyprland
     xfce.thunar
     xorg.xrandr
@@ -45,12 +47,23 @@ in {
   # program config
   programs.neovim = {
     enable = true;
-    plugins = with pkgs.vimPlugins; [
-      indent-blankline-nvim-lua
-    ];
     extraConfig = ''
-      require("ibl").setup()
+      set tabstop=2
+      set softtabstop=2
+      set shiftwidth=2
+      set shiftround
+      set expandtab
+      set autoindent
+      set cpoptions+=I
+      set smartindent
+      set clipboard+=unnamedplus
     '';
+    plugins = with pkgs.vimPlugins; [
+      {
+        plugin = indent-blankline-nvim-lua;
+	config = '' lua require("ibl").setup() '';
+      }
+    ];
   };
   programs.zoxide = {
     enable = true;
@@ -133,146 +146,8 @@ in {
   };
   wayland.windowManager.hyprland = {
     enable = true;
-    plugins = [  ];
-    settings = {  };
-    extraConfig = 
-     "monitor=,highres,auto,1
-
-      # programs
-      $terminal = alacritty
-      $fileManager = thunar
-      $bar = waybar
-      $wallpaper = hyprpaper
-
-      # autostart
-      exec-once = $bar
-      exec-once = lxqt-policykit-agent
-      exec-once = $terminal
-      exec-once = $wallpaper
-
-      # environment vars
-      env = XCURSOR_SIZE,24
-      env = HYPRCURSOR_SIZE,24
-
-      # visuals
-      general {
-        gaps_in = 6
-	gaps_out = 6
-	border_size = 1
-
-	resize_on_border = true
-	
-	# dwindle : tree; master : obvi;
-	layout = master
-      }
-
-      decoration {
-        rounding = 0
-
-	active_opacity = 0.76
-	inactive_opacity = 0.52
-
-	drop_shadow = false
-
-	blur {
-	  enabled = false
-	  new_optimizations = on
-	}
-      }
-
-      animations {
-        enabled = true;
-	bezier = myBezier, 0.6, 0.14, 0, 1
-
-	animation = windows, 1, 6, myBezier
-	animation = windowsOut, 1, 6, default, popin 80%
-	animation = border, 1, 8, default
-	animation = fade, 1, 6, default
-	animation = workspaces, 1, 6, default
-      }
-      
-      dwindle {
-        pseudotile = true
-	preserve_split = false
-      }
-
-      master {
-        new_status = master
-      }
-
-      misc {
-        force_default_wallpaper = -1
-	disable_hyprland_logo = false
-      }
-      
-      input {
-        kb_layout = us
-	kb_variant = 
-	kb_model = 
-	kb_options = 
-	kb_rules = 
-
-	follow_mouse = 1
-	sensitivity = 0.1 # -1.0 to 1.0
-
-	touchpad {
-	  natural_scroll = false
-	}
-      }
-
-      gestures {
-        workspace_swipe = false
-      }
-      
-      # binds
-      $m0 = SUPER
-
-      bind = $m0, T, exec, $terminal
-      bind = $m0, F, exec, $fileManager
-      bind = $m0, C, killactive,
-      bind = $m0, Q, exit,
-
-      bind = $m0, left, movefocus, l
-      bind = $m0, right, movefocus, r
-      bind = $m0, up, movefocus, u
-      bind = $m0, down, movefocus, d
-
-      bind = $m0, 1, workspace, 1
-      bind = $m0, 2, workspace, 2
-      bind = $m0, 3, workspace, 3
-      bind = $m0, 4, workspace, 4
-      bind = $m0, 5, workspace, 5
-      bind = $m0, 6, workspace, 6
-      bind = $m0, 7, workspace, 7
-      bind = $m0, 8, workspace, 8
-      bind = $m0, 9, workspace, 9
-      bind = $m0, 0, workspace, 10      
-
-      bind = $m0 SHIFT, 1, movetoworkspace, 1
-      bind = $m0 SHIFT, 2, movetoworkspace, 2
-      bind = $m0 SHIFT, 3, movetoworkspace, 3
-      bind = $m0 SHIFT, 4, movetoworkspace, 4
-      bind = $m0 SHIFT, 5, movetoworkspace, 5
-      bind = $m0 SHIFT, 6, movetoworkspace, 6
-      bind = $m0 SHIFT, 7, movetoworkspace, 7
-      bind = $m0 SHIFT, 8, movetoworkspace, 8
-      bind = $m0 SHIFT, 9, movetoworkspace, 9
-      bind = $m0 SHIFT, 0, movetoworkspace, 10  
-
-      bind = $m0, S, layoutmsg, swapwithmaster
-
-      $stk = (Floating Window - Show Me The Key)
-      windowrule = float, title:$stk
-      windowrule = pin, title:$stk
-      windowrule = nofocus, title:$stk
-      windowrule = opaque, title:$stk
-      windowrule = noblur, title:$stk
-      windowrule = move 0 -49, title:$stk
-      windowrule = size 90% 80, title:$stk
-
-      ";
+    extraConfig = builtins.readFile ~/.dotfiles/hypr/hyprland.conf;
   };
-
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {  };
