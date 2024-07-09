@@ -32,7 +32,6 @@ in {
     lxqt.lxqt-policykit
     mplayer
     neofetch
-    neovim
     pavucontrol
     prismlauncher
     showmethekey
@@ -44,6 +43,12 @@ in {
   ];
 
   # program config
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      indent-blankline-nvim-lua
+    ];
+  };
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -119,8 +124,8 @@ in {
     settings = {
       irc = "off";
       splash = false;
-      preload = [ "~/.dotfiles/wallpaper/gear.png" ];
-      wallpaper = [ ",~/.dotfiles/wallpaper/gear.png" ];
+      preload = [ "~/.dotfiles/wallpaper/bliss1920x1080.png" ];
+      wallpaper = [ ",~/.dotfiles/wallpaper/bliss1920x1080.png" ];
     };
   };
   wayland.windowManager.hyprland = {
@@ -161,8 +166,8 @@ in {
       decoration {
         rounding = 0
 
-	active_opacity = 0.54
-	inactive_opacity = 0.32
+	active_opacity = 0.76
+	inactive_opacity = 0.52
 
 	drop_shadow = false
 
