@@ -48,6 +48,9 @@ in {
     plugins = with pkgs.vimPlugins; [
       indent-blankline-nvim-lua
     ];
+    extraConfig = ''
+      require("ibl").setup()
+    '';
   };
   programs.zoxide = {
     enable = true;
